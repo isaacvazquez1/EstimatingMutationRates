@@ -1,0 +1,478 @@
+---
+title: "Test"
+output: html_document
+---
+
+# Global definitions 
+Probability-generating functions
+```{r}
+#Definition of functions
+
+h <- function(z) {
+  (1 - z)^((1 - z) / z)
+}
+
+px <- function(z,Am,m1,Amm) {
+  (h(z)^{Am}) * (h(h(z)^m1)^{Amm})
+}
+
+psb <- function(z,pb) {
+  (1 - pb) + pb * z
+}
+
+ps <- function(z,p) {
+  (1 - p) + p * z
+}
+
+pgb <- function(z,Am,m1,pb,Amm) {
+  px(psb(z,pb),Am,m1,Amm)
+}
+
+pgs <- function(z,p,Am,m1,Amm){
+  px(ps(z,p),Am,m1,Amm)
+}
+```
+
+File reading, dilution process, and FFT algorithm to recover probability states
+
+```{r, warning=FALSE}
+#Requiered libraries
+library(parallel)
+
+cl <- makeCluster(detectCores() - 5)
+cl
+
+library(doParallel)
+registerDoParallel(cl)
+
+library(plotly)
+
+#Print twenty decimal places
+options("digits" = 20)
+
+#Data set to work with
+FILENAME <- "luria_4trans_1.00e-007mua_2seed.txt"
+#Reading the file
+td <- read.table(FILENAME,header = F,sep="")
+
+#Sampling probability
+ps1 <- 2^{20}/2^{33}
+
+#Dilution process: Binomial sampling, with probability ps1, of resistant cell in the j-th growth cycle
+binomial_sampling_GC_j<-function(td,j,ps1){
+  a=c()
+  for (i in 1:nrow(td)){
+    a=c(a,rbinom(n = 1, size = (td[, (4 * (j - 1) + 2)]+td[ ,(4 * (j - 1) + 4)])[i], prob = ps1))
+  }
+  return(a)
+}
+
+#Recovery of the k-th probability state of the pmf
+#WT2R  Mutation rate from wildtype to resistant cells
+#WT2M  Mutation rate from wildtype to mutator cells
+#pop   Final population size
+#N     Total number of probability states
+pmf_coeff<-function(k,WT2R,WT2M,M2R,pop,N,ps1){
+  sum=0
+  for(n in 0:(N-1)){
+    #Auxiliary variable to transform the pgf into a characteristic function
+    aux_char=exp((2i*pi*n)/N)
+    #Auxiliary variable to apply the FFT algorithm
+    aux=(-1*2i*pi*n*k)/N
+    #FFT                                   
+    sum=sum + pgs(aux_char,p=ps1,Am=10^{WT2R}*pop,m1=10^{WT2M},Amm=10^{M2R}*pop)*exp(aux)
+  }
+  #Real part
+  return(Re(sum/N))
+}
+
+discretization_fun<-function(range, n){
+  mu_min=range[1]
+  mu_max=range[2]
+  a=seq(0,n)
+  result=mu_min*(mu_max/mu_min)^{a/n}
+  return(result)
+}
+
+#log-likelihood function
+ll_fun<-function(data,WT2R,WT2M,M2R,pop_size,N,ps1){
+  sum(log(pmf_coeff(data+1,WT2R,WT2M,M2R,pop_size,N,ps1)))
+}
+
+```
+
+```{r, warning=FALSE}
+estimations=function(File, population_size, resample_size, GC, dilution, discretization){
+  #Reading the file
+  td <- read.table(FILENAME,header = F,sep="")
+  #Binomial sampling of resistant cells in the j-th growth cycle, j=1
+  data<-binomial_sampling_GC_j(td, j=GC,p=dilution)
+  
+  data=sample(data, resample_size, replace = T)
+  
+  #Maximum value in data 
+  N=max(data)
+  N
+  
+  
+  #Sample space discretization
+  paramters_WT2R=c(-8,-5)
+  WT2R=discretization_fun(paramters_WT2R,discretization)
+  paramters_WT2M=c(-7,-3)
+  WT2M=discretization_fun(paramters_WT2M,discretization)
+  paramters_M2R=c(-7,-3)
+  M2R=discretization_fun(paramters_M2R,discretization)
+  
+  #Initial maximum
+  max=ll_fun(data,WT2R = WT2R[1], WT2M = WT2M[1], M2R=M2R[1], population_size, N, dilution)
+  
+  powers=c()
+  
+  for(i in WT2R){
+    for(j in WT2M){
+      for(k in M2R){
+        aux=ll_fun(data, WT2R = i, WT2M = j, M2R = k,population_size, N, dilution)
+        if(max<aux){
+          max=aux
+          powers=c(i,j,k)
+        }
+      }
+    }
+  }
+  
+  #Maximum value
+  max
+  #Estimations on log_10 scale
+  return(powers)
+}
+```
+
+# Example
+
+```{r}
+#Data set to work with
+FILENAME <- "luria_4trans_1.00e-007mua_2seed.txt"
+population_size=2^{33}
+resample_size=50
+GC=1
+dilution=runif(1, min = 0, max = 0.001)
+discretization=20
+estimations(FILENAME, population_size, resample_size, GC, dilution, discretization)
+```
+
+
+# First growth cycle
+
+
+```{r, fig.align='center'}
+result=c()
+FILENAME <- "luria_4trans_1.00e-007mua_2seed.txt"
+population_size=2^{33}
+resample_size=50
+GC=1
+discretization=25
+
+rep=100
+output<-foreach(k=1:rep)%dopar%{
+  estimations(FILENAME, population_size, resample_size,GC, dilution=runif(1, min=0, max=0.001), discretization)
+}
+for(j in 1:rep){
+    result=rbind(result,output[[j]])
+  }
+  
+
+
+colnames(result)=c('WT2R:GC1', 'WT2M:CG1', 'M2R:GC1')
+
+#95% confidence region
+alpha=0.05
+confidence_intervals=matrix(,3,2)
+for(i in 1:ncol(result)){
+  aux=result[,i]
+  aux=sort(aux)
+  lower=round(alpha/2*(nrow(result)+1))
+  upper=round((1-alpha/2)*(nrow(result)+1))
+  if(lower==0){
+    lower=1
+  }
+  if(upper>nrow(result)){
+    upper=nrow(result)
+  }
+  confidence_intervals[i,1]=aux[lower]
+  confidence_intervals[i,2]=aux[upper]
+}
+
+colnames(confidence_intervals)=c('Lower bound', 'Upper bound')
+rownames(confidence_intervals)=c(paste('WT2R | GC',GC), paste('WT2M | CG',GC), paste('M2R  | GC',GC))
+confidence_intervals
+
+a=confidence_intervals[1,1]
+b=confidence_intervals[1,2]
+
+c=confidence_intervals[2,1]
+d=confidence_intervals[2,2]
+
+e=confidence_intervals[3,1]
+f=confidence_intervals[3,2]
+
+df_scatter <- data.frame(X_VAL = c(result[,1],log10(10^{-7})),
+                         Y_VAL = c(result[,2],log10(10^{-4})),
+                         Z_VAL = c(result[,3],log10(500*10^{-7})),
+                         SCATTER_COL = rep("Outside", nrow(result)+1))
+
+        
+#Every point inside of the cube is labeled "selected" 
+for (i in 1:nrow(df_scatter)){
+  if (a < df_scatter$X_VAL[i] && df_scatter$X_VAL[i] < b &&
+      c < df_scatter$Y_VAL[i] && df_scatter$Y_VAL[i] < d &&
+      e < df_scatter$Z_VAL[i] && df_scatter$Z_VAL[i]< f){
+    df_scatter$SCATTER_COL[i] <- "Inside"
+    }
+  }
+df_scatter$SCATTER_COL <- factor(df_scatter$SCATTER_COL, levels = c("Inside", "Outside"))
+        
+
+fig=plot_ly()%>%add_markers(type = "scatter3d", 
+                        mode = "markers", 
+                        data = df_scatter, 
+                        x = ~X_VAL, 
+                        y = ~Y_VAL, 
+                        z = ~Z_VAL, 
+                        marker = list(size = 3, symbol = 104),
+                        color = ~SCATTER_COL, 
+                        colors = c('red', 'black')) %>%add_trace(type = 'mesh3d',
+  x = c(a,b,b,a,a,b,b,a),
+  y = c(c,c,c,c,d,d,d,d),
+  z = c(e,e,f,f,e,e,f,f),
+  i = c(7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2),
+  j = c(3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3),
+  k = c(0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6),
+  facecolor = rep("blue", 12),name="Confidence region",
+                      opacity = 0.09
+)
+
+
+
+fig=fig %>%layout(autosize = F, width = 1100, height = 620,title = paste("95% confidence region"),
+      scene = list(
+        xaxis = list(title = "WT to R"),
+        yaxis = list(title = "WT to M"),
+        zaxis = list(title = "M to R")
+      ))
+
+fig=fig %>% add_trace(x = log10(10^{-7}), y =  log10(10^{-4}), z =  log10(500*10^{-7}), mode = "markers", type = "scatter3d",name="Real mutation rates",marker = list(size = 5, color = "green", symbol = 111))
+
+fig
+
+```
+
+
+# Second growth cycle
+
+
+```{r, fig.align='center'}
+result=c()
+FILENAME <- "luria_4trans_1.00e-007mua_2seed.txt"
+population_size=2^{33}
+resample_size=50
+GC=2
+discretization=25
+
+rep=100
+output<-foreach(k=1:rep)%dopar%{
+  estimations(FILENAME, population_size, resample_size,GC, dilution=runif(1, min=0, max=0.001), discretization)
+}
+for(j in 1:rep){
+    result=rbind(result,output[[j]])
+  }
+  
+
+
+colnames(result)=c('WT2R:GC1', 'WT2M:CG1', 'M2R:GC1')
+
+#95% confidence region
+alpha=0.05
+confidence_intervals=matrix(,3,2)
+for(i in 1:ncol(result)){
+  aux=result[,i]
+  aux=sort(aux)
+  lower=round(alpha/2*(nrow(result)+1))
+  upper=round((1-alpha/2)*(nrow(result)+1))
+  if(lower==0){
+    lower=1
+  }
+  if(upper>nrow(result)){
+    upper=nrow(result)
+  }
+  confidence_intervals[i,1]=aux[lower]
+  confidence_intervals[i,2]=aux[upper]
+}
+
+colnames(confidence_intervals)=c('Lower bound', 'Upper bound')
+rownames(confidence_intervals)=c(paste('WT2R | GC',GC), paste('WT2M | CG',GC), paste('M2R  | GC',GC))
+confidence_intervals
+
+a=confidence_intervals[1,1]
+b=confidence_intervals[1,2]
+
+c=confidence_intervals[2,1]
+d=confidence_intervals[2,2]
+
+e=confidence_intervals[3,1]
+f=confidence_intervals[3,2]
+
+df_scatter <- data.frame(X_VAL = c(result[,1],log10(10^{-7})),
+                         Y_VAL = c(result[,2],log10(10^{-4})),
+                         Z_VAL = c(result[,3],log10(500*10^{-7})),
+                         SCATTER_COL = rep("Outside", nrow(result)+1))
+
+        
+#Every point inside of the cube is labeled "selected" 
+for (i in 1:nrow(df_scatter)){
+  if (a < df_scatter$X_VAL[i] && df_scatter$X_VAL[i] < b &&
+      c < df_scatter$Y_VAL[i] && df_scatter$Y_VAL[i] < d &&
+      e < df_scatter$Z_VAL[i] && df_scatter$Z_VAL[i]< f){
+    df_scatter$SCATTER_COL[i] <- "Inside"
+    }
+  }
+df_scatter$SCATTER_COL <- factor(df_scatter$SCATTER_COL, levels = c("Inside", "Outside"))
+        
+
+fig=plot_ly()%>%add_markers(type = "scatter3d", 
+                        mode = "markers", 
+                        data = df_scatter, 
+                        x = ~X_VAL, 
+                        y = ~Y_VAL, 
+                        z = ~Z_VAL, 
+                        marker = list(size = 3, symbol = 104),
+                        color = ~SCATTER_COL, 
+                        colors = c('red', 'black')) %>%add_trace(type = 'mesh3d',
+  x = c(a,b,b,a,a,b,b,a),
+  y = c(c,c,c,c,d,d,d,d),
+  z = c(e,e,f,f,e,e,f,f),
+  i = c(7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2),
+  j = c(3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3),
+  k = c(0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6),
+  facecolor = rep("blue", 12),name="Confidence region",
+                      opacity = 0.09
+)
+
+
+
+fig=fig %>%layout(autosize = F, width = 1100, height = 620,title = paste("95% confidence region"),
+      scene = list(
+        xaxis = list(title = "WT to R"),
+        yaxis = list(title = "WT to M"),
+        zaxis = list(title = "M to R")
+      ))
+
+fig=fig %>% add_trace(x = log10(10^{-7}), y =  log10(10^{-4}), z =  log10(500*10^{-7}), mode = "markers", type = "scatter3d",name="Real mutation rates",marker = list(size = 5, color = "green", symbol = 111))
+
+fig
+
+```
+
+# Third growth cycle
+
+
+```{r, fig.align='center'}
+result=c()
+FILENAME <- "luria_4trans_1.00e-007mua_2seed.txt"
+population_size=2^{33}
+resample_size=50
+GC=3
+discretization=25
+
+rep=100
+output<-foreach(k=1:rep)%dopar%{
+  estimations(FILENAME, population_size, resample_size,GC, dilution=runif(1, min=0, max=0.001), discretization)
+}
+for(j in 1:rep){
+    result=rbind(result,output[[j]])
+  }
+  
+
+
+colnames(result)=c('WT2R:GC1', 'WT2M:CG1', 'M2R:GC1')
+
+#95% confidence region
+alpha=0.05
+confidence_intervals=matrix(,3,2)
+for(i in 1:ncol(result)){
+  aux=result[,i]
+  aux=sort(aux)
+  lower=round(alpha/2*(nrow(result)+1))
+  upper=round((1-alpha/2)*(nrow(result)+1))
+  if(lower==0){
+    lower=1
+  }
+  if(upper>nrow(result)){
+    upper=nrow(result)
+  }
+  confidence_intervals[i,1]=aux[lower]
+  confidence_intervals[i,2]=aux[upper]
+}
+
+colnames(confidence_intervals)=c('Lower bound', 'Upper bound')
+rownames(confidence_intervals)=c(paste('WT2R | GC',GC), paste('WT2M | CG',GC), paste('M2R  | GC',GC))
+confidence_intervals
+
+a=confidence_intervals[1,1]
+b=confidence_intervals[1,2]
+
+c=confidence_intervals[2,1]
+d=confidence_intervals[2,2]
+
+e=confidence_intervals[3,1]
+f=confidence_intervals[3,2]
+
+df_scatter <- data.frame(X_VAL = c(result[,1],log10(10^{-7})),
+                         Y_VAL = c(result[,2],log10(10^{-4})),
+                         Z_VAL = c(result[,3],log10(500*10^{-7})),
+                         SCATTER_COL = rep("Outside", nrow(result)+1))
+
+        
+#Every point inside of the cube is labeled "selected" 
+for (i in 1:nrow(df_scatter)){
+  if (a < df_scatter$X_VAL[i] && df_scatter$X_VAL[i] < b &&
+      c < df_scatter$Y_VAL[i] && df_scatter$Y_VAL[i] < d &&
+      e < df_scatter$Z_VAL[i] && df_scatter$Z_VAL[i]< f){
+    df_scatter$SCATTER_COL[i] <- "Inside"
+    }
+  }
+df_scatter$SCATTER_COL <- factor(df_scatter$SCATTER_COL, levels = c("Inside", "Outside"))
+        
+
+fig=plot_ly()%>%add_markers(type = "scatter3d", 
+                        mode = "markers", 
+                        data = df_scatter, 
+                        x = ~X_VAL, 
+                        y = ~Y_VAL, 
+                        z = ~Z_VAL, 
+                        marker = list(size = 3, symbol = 104),
+                        color = ~SCATTER_COL, 
+                        colors = c('red', 'black')) %>%add_trace(type = 'mesh3d',
+  x = c(a,b,b,a,a,b,b,a),
+  y = c(c,c,c,c,d,d,d,d),
+  z = c(e,e,f,f,e,e,f,f),
+  i = c(7, 0, 0, 0, 4, 4, 6, 6, 4, 0, 3, 2),
+  j = c(3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3),
+  k = c(0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 6),
+  facecolor = rep("blue", 12),name="Confidence region",
+                      opacity = 0.09
+)
+
+
+
+fig=fig %>%layout(autosize = F, width = 1100, height = 620,title = paste("95% confidence region"),
+      scene = list(
+        xaxis = list(title = "WT to R"),
+        yaxis = list(title = "WT to M"),
+        zaxis = list(title = "M to R")
+      ))
+
+fig=fig %>% add_trace(x = log10(10^{-7}), y =  log10(10^{-4}), z =  log10(500*10^{-7}), mode = "markers", type = "scatter3d",name="Real mutation rates",marker = list(size = 5, color = "green", symbol = 111))
+
+fig
+
+```

@@ -1,0 +1,104 @@
+setwd("~/EstimatingMutationRates/R")
+library(EstimatingMutationRates)
+GraphM_GrowthCycles(initial_pop=1, final_pop=10^9, mu_WR=10^-7, mu_WM=10^-5, mu_MR=10^-5, n_cycles=3, bottle_neck=10^{3})
+GraphM_GrowthCycles(initial_pop=1, final_pop=10^9, mu_WR=10^-7, mu_WM=10^-5, mu_MR=10^-5, n_cycles=1, bottle_neck=10^{3})
+library(EstimatingMutationRates)
+library(EstimatingMutationRates)
+setwd("~/EstimatingMutationRates/man")
+library(EstimatingMutationRates)
+QuantileM_GrowthCycles(initial_pop=1, final_pop=10^9, mu_WR=10^-7, mu_WM=10^-5, mu_MR=10^-5, n_cycles=3, bottle_neck=10^{3})
+library(EstimatingMutationRates)
+QuantileM_GrowthCycles(initial_pop=1, final_pop=10^9, mu_WR=10^-7, mu_WM=10^-5, mu_MR=10^-5, n_cycles=3, bottle_neck=10^{3})
+QuantileM_GrowthCycles(initial_pop=1, final_pop=10^9, mu_WR=10^-7, mu_WM=10^-5, mu_MR=10^-5, n_cycles=5, bottle_neck=10^{3})
+QuantileM_GrowthCycles(initial_pop=1, final_pop=10^9, mu_WR=10^-7, mu_WM=10^-5, mu_MR=10^-5, n_cycles=5, bottle_neck=10^{3})
+R=TRUE
+a=cbind(1,2,3)
+a
+a=cbind(a, c(5,9,8))
+a=cbind(a, c(5,9))
+a=cbind(a, c(5))
+a
+a=c(1,2,3)
+a
+a=cbind(a, c(8,8,8))
+a
+td <- read.table(a,header = a,sep="")
+library(EstimatingMutationRates)
+experiments=100
+result=c()
+for(i in 1:experiments){
+result=rbind(result,QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
+mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2ˆ20)
+experiments=100
+result=c()
+for(i in 1:experiments){
+result=rbind(result,QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
+mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2^20)
+}
+QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
+mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2^20)
+experiments=100
+result=c()
+for(i in 1:experiments){
+result=rbind(result,QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
+mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2^20)
+}
+for(i in 1:experiments){
+result=rbind(result, QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
+mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2^20)
+}
+for(i in 1:experiments)
+{}
+experiments=100
+result=c()
+for(i in 1:experiments){
+result=rbind(result, QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
+mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2^20)
+}
+experiments=100
+result=c()
+for(i in 1:experiments){
+result=rbind(result, QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
+mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2^20))
+}
+filename <- "QM - InitialPop 1, FinalPop 2^33, Bottleneck 2^20, Growth cycles 3, WT2R 10^-7, WT2M 10^-5, M2R 10^-4"
+write.table(result, filename, sep = " ",append = T,col.names = TRUE,row.names = FALSE)
+td <- read.table(file,header = T,sep="")
+filename <- "QM - InitialPop 1, FinalPop 2^33, Bottleneck 2^20, Growth cycles 3, WT2R 10^-7, WT2M 10^-5, M2R 10^-4.txt"
+td <- read.table(file,header = T,sep="")
+td <- read.table(filename,header = T,sep=" ")
+View(td)
+View(td)
+cbind(td$Mutants_GC_1,td$Mutant_mutators_GC_1)
+aux <- read.table(filename,header = T,sep=" ")
+Mutants=cbind(aux$Mutants_GC_1, aux$Mutant_mutators_GC_1, aux$Mutants_GC_2, aux$Mutant_mutators_GC_2,
+aux$Mutants_GC_3, aux$Mutant_mutators_GC_3)
+View(Mutants)
+View(Mutants)
+FILENAME="QM-Mutants.txt"
+write.table(Mutants, FILENAME, sep = " ",append = T,col.names = TRUE,row.names = FALSE)
+FILENAME="QM-Mutants.txt"
+write.table(Mutants, FILENAME, sep = " ",append = T,col.names = FALSE,row.names = FALSE)
+ML_Estimation=(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+ML_Estimation=(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+ML_Estimation=(FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+library(EstimatingMutationRates)
+ML_Estimation=(FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+library(EstimatingMutationRates)
+ML_Estimation=(FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+FILENAME
+population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+population_size=2^33
+resample_size=50
+GC=2
+dilution=0.0001,
+dilution=0.0001
+discretization=25
+ML_Estimation(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+ML_Estimation(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+ML_Estimation(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
+discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+discretization=25
+library(EstimatingMutationRates)
