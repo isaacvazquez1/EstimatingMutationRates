@@ -1,27 +1,27 @@
 {
-    "id": "A9D7600C",
-    "path": "~/EstimatingMutationRates/man/QuantileM_GrowthCycles.Rd",
-    "project_path": "man/QuantileM_GrowthCycles.Rd",
+    "id": "83E77C7E",
+    "path": "~/GitHub/EstimatingMutationRates/man/LSQ_Estimation.Rd",
+    "project_path": "man/LSQ_Estimation.Rd",
     "type": "r_doc",
-    "hash": "0",
+    "hash": "2132369329",
     "contents": "",
     "dirty": false,
-    "created": 1694403233644.0,
+    "created": 1694415591981.0,
     "source_on_save": false,
-    "relative_order": 4,
+    "relative_order": 7,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "76,10",
-        "scrollLine": "68"
+        "cursorPosition": "10,0",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1694396324,
+    "lastKnownWriteTime": 1694415625,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1694396324,
+    "last_content_update": 1694415625347,
     "read_only": false,
     "read_only_alternatives": []
 }

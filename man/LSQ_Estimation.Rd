@@ -1,5 +1,5 @@
-\name{ML_Estimation}
-\alias{ML_Estimation}
+\name{LSQ_Estimation}
+\alias{LSQ_Estimation}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Maximum likelihood estimation}
 \description{Given a growth cycle \code{GC} where \eqn{c} cell cultures where plated and each culture contains \code{population_size} cells, a dilution process is performed according a binomial sampling, this is, a random sample of size one is drawn from a Binomial distribution whose parameters are \eqn{n}, the number on mutant cells in each culture in the growth cycle, and \eqn{p=}\code{dilution}, the dilution factor.
