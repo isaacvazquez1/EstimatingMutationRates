@@ -3,25 +3,25 @@
     "path": "~/GitHub/EstimatingMutationRates/man/LSQ_Estimation.Rd",
     "project_path": "man/LSQ_Estimation.Rd",
     "type": "r_doc",
-    "hash": "2132369329",
+    "hash": "2841542278",
     "contents": "",
     "dirty": false,
     "created": 1694415591981.0,
     "source_on_save": false,
-    "relative_order": 7,
+    "relative_order": 5,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "10,0",
-        "scrollLine": "0"
+        "cursorPosition": "88,21",
+        "scrollLine": "79"
     },
     "folds": "",
-    "lastKnownWriteTime": 1694415625,
+    "lastKnownWriteTime": 1694476875,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1694415625347,
+    "last_content_update": 1694476875072,
     "read_only": false,
     "read_only_alternatives": []
 }

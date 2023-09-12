@@ -69,15 +69,14 @@ ML_Estimation(File, population_size, resample_size, GC, dilution, discretization
 \examples{
 
 #Generating 100 simultations
-experiments=10
+experiments=100
 result=c()
 for(i in 1:experiments){
-  result=rbind(result, QuantileM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-7,
-  mu_WM=10^-5, mu_MR=10^-4, n_cycles=3, bottle_neck=2^20))
+  result=rbind(result, GraphM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-{7.5}, mu_WM=10^-6, mu_MR=10^-5, n_cycles=3, bottle_neck=2^{20}))
   }
 
 #Saving the dataset
-filename <- "QM - InitialPop 1, FinalPop 2^33, Bottleneck 2^20, Growth cycles 3, WT2R 10^-7, WT2M 10^-5, M2R 10^-4.txt"
+filename <- "GM - InitialPop 1, FinalPop 2^33, Bottleneck 2^20, Growth cycles 3, WT2R 10^-(7.5), WT2M 10^-6, M2R 10^-5.txt"
 write.table(result, filename, sep = " ",append = T,col.names = TRUE, row.names = FALSE)
 
 #Reading the dataset
@@ -86,12 +85,12 @@ aux <- read.table(filename,header = T,sep=" ")
 #Saving dataset of mutants of each growth cycle
 Mutants=cbind(aux$Mutants_GC_1, aux$Mutant_mutators_GC_1, aux$Mutants_GC_2, aux$Mutant_mutators_GC_2,
       aux$Mutants_GC_3, aux$Mutant_mutators_GC_3)
-FILENAME="QM-Mutants.txt"
+FILENAME="GM-Mutants.txt"
 write.table(Mutants, FILENAME, sep = " ",append = T,col.names = FALSE,row.names = FALSE)
 
-#Maximum likelihood estimation
-estimates=ML_Estimation(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
-               discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+#Direct adjust estimation
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=3, dilution=0.0000005,
+               discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
 
 #Estimation of the mutation rates
 mutation_rates=10^estimates

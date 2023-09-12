@@ -55,7 +55,7 @@ LSQ_Estimation<-function(File, population_size, GC, dilution, discretization,
 
   #Reading the file
   td <- read.table(File,header = F,sep="")
-
+  n_cycles<-GC
   nn1 <- population_size
   lbm <- 10^WT2R_bounds[1]
   ubm <- 10^WT2R_bounds[2]
@@ -109,6 +109,7 @@ LSQ_Estimation<-function(File, population_size, GC, dilution, discretization,
             tp_aux=paste0('tp',i)
             tp.var=get(tp_aux)
             s=tp.var+(pg_actual.var-epgf.var(z))^2
+            assign(tp_aux, s)
           }
         }
 
@@ -153,11 +154,6 @@ LSQ_Estimation<-function(File, population_size, GC, dilution, discretization,
   }
 
 }
-
-
-
-#LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
-#               WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
 
 
 
