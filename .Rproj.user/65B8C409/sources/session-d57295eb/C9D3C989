@@ -1,27 +1,27 @@
 {
-    "id": "1840A623",
-    "path": "~/GitHub/EstimatingMutationRates/R/LSQ_Estimation.R",
-    "project_path": "R/LSQ_Estimation.R",
+    "id": "C9D3C989",
+    "path": "~/GitHub/EstimatingMutationRates/R/ML_Estimation.R",
+    "project_path": "R/ML_Estimation.R",
     "type": "r_source",
-    "hash": "100269044",
+    "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1694406298719.0,
+    "created": 1694397017753.0,
     "source_on_save": false,
-    "relative_order": 2,
+    "relative_order": 1,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "157,0",
-        "scrollLine": "144"
+        "cursorPosition": "147,0",
+        "scrollLine": "130"
     },
     "folds": "",
-    "lastKnownWriteTime": 1694476885,
+    "lastKnownWriteTime": 1696304591,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1694476885160,
+    "last_content_update": 1696304591443,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -1,0 +1,512 @@
+assign(ls_aux, list(log(mi / nn1), log(m1i), log(mmi / nn1), log(tpt.var)))
+}
+}
+#tls <- c(tls, list(list(log(mi / nn1), log(m1i), log(mmi / nn1)),list(log(tpt1), log(tpt2), log(tpt3))))
+}
+}
+}
+for (i in 1:n_cycles) {
+tls_aux=paste0('tls',i)
+ls_aux=paste0('ls',i)
+ls.var=get(ls_aux)
+assign(tls_aux, list(ls.var))
+}
+e^{-15.8}
+exp(-15.8)
+for (i in 1:n_cycles) {
+tls_aux=paste0('tls',i)
+ls_aux=paste0('ls',i)
+ls.var=get(ls_aux)
+assign(tls_aux, list(ls.var))
+}
+View(ls.var)
+ls1
+exp(ls1)
+sapply(ls1, `[[`, 1)
+exp(sapply(ls1, `[[`, 1))
+exp(sapply(ls1, `[[`, 1))[1:2]
+exp(sapply(ls1, `[[`, 1))[1:3]
+sapply(ls1, `[[`, 1)[1:2]
+sapply(ls1, `[[`, 1)[1:3]
+for(i in 1:n_cycles){
+aux=paste0(ls,i)
+aux.var=get(aux.var)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+names(esti)=c(paste0('Wildtype to Mutant | GC', i),paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(esti)
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux.var)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+names(esti)=c(paste0('Wildtype to Mutant | GC', i),paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(esti)
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+names(esti)=c(paste0('Wildtype to Mutant | GC', i),paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(esti)
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+#names(esti)=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+#names(esti)=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+# paste0('Mutator to Mutant | GC', i))
+print(esti)
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+#names(esti)=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+# paste0('Mutator to Mutant | GC', i))
+print(get(esti))
+}
+Estimations_GC_1
+Estimations_GC_1[1]
+Estimations_GC_1[2]
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+names(get(esti))=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(get(esti))
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+esti.var=get(esti)
+names(esti.var)=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(get(esti))
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+esti.var=get(esti)
+names(esti.var)=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(esti.var)
+}
+LSQ_Estimation<-function(File, population_size, resample_size, GC, dilution, discretization,
+WT2R_bounds, WT2M_bounds, M2R_bounds){
+#Reading the file
+td <- read.table(File,header = F,sep="")
+nn1 <- population_size
+lbm <- 10^WT2R_bounds[1]
+ubm <- 10^WT2R_bounds[2]
+lbm1 <- 10^WT2M_bounds[1]
+ubm1 <- 10^WT2M_bounds[2]
+lbmm <- 10^M2R_bounds[1]
+ubmm <- 10^M2R_bounds[2]
+ps1 <- dilution
+pb1 <- 2^(20)/(2^(33))
+epgf_1=epgf_gc_j(td, 1, ps1)
+for (j in 2:n_cycles){
+assign(paste0('epgf_', j), epgf_gc_j(td, j, ps1))
+}
+zr <- seq(0.4, 0.9, by = 0.1)
+mr <- (lbm * (ubm / lbm)^(0:discretization / discretization)) * nn1
+m1r <- (lbm1 * (ubm1 / lbm1)^(0:discretization / discretization))
+mmr <- (lbmm * (ubmm / lbmm)^(0:discretization / discretization)) * nn1
+tls1 <- list()
+lls <- list()
+tls <- list()
+upper_mne_j <- 1000000
+for (j in 1:n_cycles){
+mne_aux=paste0('mne', j)
+assign(mne_aux, upper_mne_j)
+}
+for (mi in mr) {
+for (m1i in m1r) {
+for (mmi in mmr) {
+for (i in 1:n_cycles){
+assign(paste0('tp', i), 0)
+}
+for(z in zr){
+pg1 <- pgs(z,ps1,mi,m1i,mmi)
+tp1=tp1+(pg1 - epgf_1(z))^2
+for (i in 2:n_cycles){
+pg_aux=paste0('pg', i-1)
+pg.var=get(pg_aux)
+pg_aux_actual=paste0('pg', i)
+assign(pg_aux_actual, pgb(pg.var,mi,m1i,pb1,mmi))
+pg_actual.var=get(pg_aux_actual)
+epgf_aux=paste0('epgf_', i)
+epgf.var=get(epgf_aux)
+tp_aux=paste0('tp',i)
+tp.var=get(tp_aux)
+s=tp.var+(pg_actual.var-epgf.var(z))^2
+}
+}
+tpt1 <- tp1
+for (i in 2:n_cycles){
+tpt_aux=paste0('tpt', i-1)
+tpt.var=get(tpt_aux)
+tp_aux_actual=paste0('tp',i)
+tp_actual.var=get(tp_aux_actual)
+s=tpt.var+tp_actual.var
+tpt_aux_actual=paste0('tpt', i)
+assign(tpt_aux_actual, s)
+}
+for (i in 1:n_cycles){
+tpt_aux=paste0('tpt', i)
+tpt.var=get(tpt_aux)
+mne_aux=paste0('mne', i)
+mne.var=get(mne_aux)
+ls_aux=paste0('ls',i)
+if (tpt.var < mne.var) {
+assign(mne_aux,tpt.var)
+assign(ls_aux, list(log(mi / nn1), log(m1i), log(mmi / nn1), log(tpt.var)))
+}
+}
+#tls <- c(tls, list(list(log(mi / nn1), log(m1i), log(mmi / nn1)),list(log(tpt1), log(tpt2), log(tpt3))))
+}
+}
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+esti.var=get(esti)
+names(esti.var)=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(esti.var)
+}
+}
+LSQ_Estimation<-function(File, population_size, GC, dilution, discretization,
+WT2R_bounds, WT2M_bounds, M2R_bounds){
+#Reading the file
+td <- read.table(File,header = F,sep="")
+nn1 <- population_size
+lbm <- 10^WT2R_bounds[1]
+ubm <- 10^WT2R_bounds[2]
+lbm1 <- 10^WT2M_bounds[1]
+ubm1 <- 10^WT2M_bounds[2]
+lbmm <- 10^M2R_bounds[1]
+ubmm <- 10^M2R_bounds[2]
+ps1 <- dilution
+pb1 <- 2^(20)/(2^(33))
+epgf_1=epgf_gc_j(td, 1, ps1)
+for (j in 2:n_cycles){
+assign(paste0('epgf_', j), epgf_gc_j(td, j, ps1))
+}
+zr <- seq(0.4, 0.9, by = 0.1)
+mr <- (lbm * (ubm / lbm)^(0:discretization / discretization)) * nn1
+m1r <- (lbm1 * (ubm1 / lbm1)^(0:discretization / discretization))
+mmr <- (lbmm * (ubmm / lbmm)^(0:discretization / discretization)) * nn1
+tls1 <- list()
+lls <- list()
+tls <- list()
+upper_mne_j <- 1000000
+for (j in 1:n_cycles){
+mne_aux=paste0('mne', j)
+assign(mne_aux, upper_mne_j)
+}
+for (mi in mr) {
+for (m1i in m1r) {
+for (mmi in mmr) {
+for (i in 1:n_cycles){
+assign(paste0('tp', i), 0)
+}
+for(z in zr){
+pg1 <- pgs(z,ps1,mi,m1i,mmi)
+tp1=tp1+(pg1 - epgf_1(z))^2
+for (i in 2:n_cycles){
+pg_aux=paste0('pg', i-1)
+pg.var=get(pg_aux)
+pg_aux_actual=paste0('pg', i)
+assign(pg_aux_actual, pgb(pg.var,mi,m1i,pb1,mmi))
+pg_actual.var=get(pg_aux_actual)
+epgf_aux=paste0('epgf_', i)
+epgf.var=get(epgf_aux)
+tp_aux=paste0('tp',i)
+tp.var=get(tp_aux)
+s=tp.var+(pg_actual.var-epgf.var(z))^2
+}
+}
+tpt1 <- tp1
+for (i in 2:n_cycles){
+tpt_aux=paste0('tpt', i-1)
+tpt.var=get(tpt_aux)
+tp_aux_actual=paste0('tp',i)
+tp_actual.var=get(tp_aux_actual)
+s=tpt.var+tp_actual.var
+tpt_aux_actual=paste0('tpt', i)
+assign(tpt_aux_actual, s)
+}
+for (i in 1:n_cycles){
+tpt_aux=paste0('tpt', i)
+tpt.var=get(tpt_aux)
+mne_aux=paste0('mne', i)
+mne.var=get(mne_aux)
+ls_aux=paste0('ls',i)
+if (tpt.var < mne.var) {
+assign(mne_aux,tpt.var)
+assign(ls_aux, list(log(mi / nn1), log(m1i), log(mmi / nn1), log(tpt.var)))
+}
+}
+#tls <- c(tls, list(list(log(mi / nn1), log(m1i), log(mmi / nn1)),list(log(tpt1), log(tpt2), log(tpt3))))
+}
+}
+}
+for(i in 1:n_cycles){
+aux=paste0('ls',i)
+aux.var=get(aux)
+esti=paste0('Estimations_GC_',i)
+assign(esti,exp(sapply(aux.var, `[[`, 1)[1:3]))
+esti.var=get(esti)
+names(esti.var)=c(paste0('Wildtype to Mutant | GC', i), paste0('Wildtype to Mutator | GC', i),
+paste0('Mutator to Mutant | GC', i))
+print(esti.var)
+}
+}
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+5*10^{-5}
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+library(EstimatingMutationRates)
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+setwd("~/GitHub/EstimatingMutationRates/R/ExampleWorkingDirectory")
+library(EstimatingMutationRates)
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+LSQ_Estimation(FILENAME='QM-Mutants.txt', population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+LSQ_Estimation(FILENAME="QM-Mutants.txt", population_size=2^33, GC=3, dilution=0.0000005, discretization=30,
+WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+setwd("~/GitHub/EstimatingMutationRates")
+library(EstimatingMutationRates)
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+setwd("~/GitHub/EstimatingMutationRates/R/ExampleWorkingDirectory")
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+library(EstimatingMutationRates)
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-4))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+FILENAME="QM-Mutants.txt"
+LSQ_Estimation(FILENAME, population_size=2^33, GC=3, dilution=0.0000005, discretization=30,WT2R_bounds=c(-9,-5), WT2M_bounds=c(-8,-4), M2R_bounds=c(-8,-3))
+#Generating 100 simultations
+experiments=100
+result=c()
+for(i in 1:experiments){
+result=rbind(result, GraphM_GrowthCycles(initial_pop=1, final_pop=2^33, mu_WR=10^-{7.5}, mu_WM=10^-6, mu_MR=10^-5, n_cycles=3, bottle_neck=2^{20}))
+}
+#Saving the dataset
+filename <- "GM - InitialPop 1, FinalPop 2^33, Bottleneck 2^20, Growth cycles 3, WT2R 10^-(7.5), WT2M 10^-6, M2R 10^-5.txt"
+write.table(result, filename, sep = " ",append = T,col.names = TRUE, row.names = FALSE)
+#Reading the dataset
+aux <- read.table(filename,header = T,sep=" ")
+#Saving dataset of mutants of each growth cycle
+Mutants=cbind(aux$Mutants_GC_1, aux$Mutant_mutators_GC_1, aux$Mutants_GC_2, aux$Mutant_mutators_GC_2,
+aux$Mutants_GC_3, aux$Mutant_mutators_GC_3)
+FILENAME="GM-Mutants.txt"
+write.table(Mutants, FILENAME, sep = " ",append = T,col.names = FALSE,row.names = FALSE)
+#Direct adjust estimation
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0000005,
+discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+#Direct adjust estimation
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=2, dilution=0.0000005,
+discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=3, dilution=0.0000005,
+discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=3, dilution=0.0000005,
+discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=3, dilution=0.0000005,
+discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=3, dilution=0.0000005,
+discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=3, dilution=0.0000005,
+discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+library(EstimatingMutationRates)
+setwd("~/GitHub/EstimatingMutationRates/R/ExampleWorkingDirectory")
+FILENAME="QM-Mutants.txt"
+ML_Jackknife_CI(Replicates=2, alpha=0.05, FreeCores=5, File=FILENAME, population_size=2^33, resample_size=50, GC=1, dilution_lowerbound=0.00005, dilution_upperbound=2^20/2^33, discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+library(EstimatingMutationRates)
+FILENAME="QM-Mutants.txt"
+ML_Jackknife_CI(Replicates=2, alpha=0.05, FreeCores=5, File=FILENAME, population_size=2^33, resample_size=50, GC=1, dilution_lowerbound=0.00005, dilution_upperbound=2^20/2^33, discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+library(EstimatingMutationRates)
+FILENAME="QM-Mutants.txt"
+ML_Jackknife_CI(Replicates=2, alpha=0.05, FreeCores=5, File=FILENAME, population_size=2^33, resample_size=50, GC=1, dilution_lowerbound=0.00005, dilution_upperbound=2^20/2^33, discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+library(EstimatingMutationRates)
+FILENAME="QM-Mutants.txt"
+ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001 ,discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), strength= 1000)
+ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001 ,discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), strength= 1000)
+ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001 ,discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), strength= 1000)
+ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001 ,discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3))
+# ML_Estimation
+#
+# Estimations by the maximum likelihood methods
+#
+#
+# You can learn more about package authoring with RStudio at:
+#
+#
+#Definition of probability-generating functions
+h <- function(z) {
+(1 - z)^((1 - z) / z)
+}
+px <- function(z,Am,m1,Amm) {
+(h(z)^{Am}) * (h(h(z)^m1)^{Amm})
+}
+psb <- function(z,pb) {
+(1 - pb) + pb * z
+}
+ps <- function(z,p) {
+(1 - p) + p * z
+}
+pgb <- function(z,Am,m1,pb,Amm) {
+px(psb(z,pb),Am,m1,Amm)
+}
+pgs <- function(z,p,Am,m1,Amm){
+px(ps(z,p),Am,m1,Amm)
+}
+#Dilution process: Binomial sampling, with probability ps1, of resistant cell in the j-th growth cycle
+binomial_sampling_GC_j<-function(td,j,ps1){
+a=c()
+for (i in 1:nrow(td)){
+a=c(a,rbinom(n = 1, size = (td[ , 2*j-1]+td[ , 2*j])[i], prob = ps1))
+}
+return(a)
+}
+#Recovery of the k-th probability state of the pmf
+#WT2R  Mutation rate from wildtype to resistant cells
+#WT2M  Mutation rate from wildtype to mutator cells
+#pop   Final population size
+#N     Total number of probability states
+pmf_coeff<-function(k,WT2R,WT2M,M2R,pop,N,ps1,strength){
+sum=0
+for(n in 0:(N-1)){
+#Auxiliary variable to transform the pgf into a characteristic function
+aux_char=exp((2i*pi*n)/N)
+#Auxiliary variable to apply the FFT algorithm
+aux=(-1*2i*pi*n*k)/N
+#FFT
+sum=sum + pgs(aux_char,p=ps1,Am=10^{WT2R}*pop,m1=10^{WT2M},Amm=strength*10^{WT2R}*pop)*exp(aux)
+}
+#Real part
+return(Re(sum/N))
+}
+discretization_fun<-function(range, n){
+mu_min=range[1]
+mu_max=range[2]
+a=seq(0,n)
+result=mu_min*(mu_max/mu_min)^{a/n}
+return(result)
+}
+#log-likelihood function
+ll_fun<-function(data,WT2R,WT2M,M2R,pop_size,N,ps1,strength){
+sum(log(pmf_coeff(data+1,WT2R,WT2M,M2R,pop_size,N,ps1,strength)))
+}
+ML_Bivariate=function(File, population_size, resampling, resample_size, GC, dilution, discretization,
+WT2R_bounds, WT2M_bounds, strength){
+#Reading the file
+td <- read.table(File,header = F,sep="")
+#Binomial sampling of resistant cells in the j-th growth cycle, j=1
+data<-binomial_sampling_GC_j(td, j=GC,p=dilution)
+if(resampling==T){
+data=sample(data, resample_size, replace = T)
+}
+#Maximum value in data
+N=max(data)
+N
+#Sample space discretization
+paramters_WT2R=WT2R_bounds
+WT2R=discretization_fun(paramters_WT2R,discretization)
+paramters_WT2M=WT2M_bounds
+WT2M=discretization_fun(paramters_WT2M,discretization)
+#Initial maximum
+max=ll_fun(data,WT2R = WT2R[1], WT2M = WT2M[1], M2R=WT2R[1], population_size, N, dilution, strength)
+powers=c()
+output=c()
+for(i in WT2R){
+for(j in WT2M){
+aux=ll_fun(data, WT2R = i, WT2M = j, M2R = i,population_size, N, dilution, strength)
+output=rbind(output, c(10^{i}, 10^{j}, strength*10^{i}, aux))
+if(max<aux){
+max=aux
+powers=c(10^{i}, 10^{j}, strength*10^{i})
+}
+}
+}
+#Maximum value
+max
+names(powers)=c('Wildtype to Mutant', 'Wildtype to Mutator', 'Mutator to Mutant mutator')
+df=as.data.frame(output)
+df_confidence<-df[df[,4] >= max-qchisq(0.95,2)/2, ]
+CI=matrix(0,3,2)
+row.names(CI)=c('Wildtype to Mutant', 'Wildtype to Mutator', 'Mutator to Mutant mutator')
+colnames(CI)=c('Lower bound','Upper bound')
+CI[1,1]=min(df_confidence$V1)
+CI[1,2]=max(df_confidence$V1)
+CI[2,1]=min(df_confidence$V2)
+CI[2,2]=max(df_confidence$V2)
+CI[3,1]=min(df_confidence$V3)
+CI[3,2]=max(df_confidence$V3)
+out=list(10^{powers}, CI, max, output)
+return(out)
+}
+ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001 ,discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), strength= 1000)
+ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001 ,discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), strength= 1000)
