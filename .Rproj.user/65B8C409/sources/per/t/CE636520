@@ -1,0 +1,26 @@
+{
+    "id": "CE636520",
+    "path": "~/GitHub/EstimatingMutationRates/man/ML_Jackknife_CI.Rd",
+    "project_path": "man/ML_Jackknife_CI.Rd",
+    "type": "r_doc",
+    "hash": "2127906187",
+    "contents": "",
+    "dirty": false,
+    "created": 1696311245278.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "6,352",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1696311909,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1696311909374,
+    "read_only": false,
+    "read_only_alternatives": []
+}

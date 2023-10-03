@@ -58,8 +58,3 @@ LSQ_Bootstrap_CI<-function(Replicates, alpha, FreeCores, File, population_size, 
   rownames(confidence_intervals)=c(paste('Wildtype to Mutant | GC',GC), paste('Wildtype to Mutator | CG',GC), paste('Mutator to Mutant mutator  | GC',GC))
   return(confidence_intervals)
 }
-
-#FILENAME="QM-Mutants.txt"
-#LSQ_Bootstrap_CI(Replicates=5, alpha=0.05, FreeCores=5, File=FILENAME, population_size=2^33, GC=1, dilution=0.0005, discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
-
-

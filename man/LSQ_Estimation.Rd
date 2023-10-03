@@ -1,15 +1,13 @@
 \name{LSQ_Estimation}
 \alias{LSQ_Estimation}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Maximum likelihood estimation}
+\title{Least squares direct estimation}
 \description{Given a growth cycle \code{GC} where \eqn{c} cell cultures where plated and each culture contains \code{population_size} cells, a dilution process is performed according a binomial sampling, this is, a random sample of size one is drawn from a Binomial distribution whose parameters are \eqn{n}, the number on mutant cells in each culture in the growth cycle, and \eqn{p=}\code{dilution}, the dilution factor.
 
-From the above framework a resample of size \code{resample_size} with replacement is taken to consider a smaller quanty of experiments. The maximum likelihood estimation methods search over a parameter space defined by the user. Vectors \code{WT2R_bounds}, \code{WT2M_bounds}, \code{M2R_bounds} will be containing the lower and upper bound on log\eqn{_{10}} scale of the mutation rates on their first and second entry, respectively. Each vector is representing an interval which be splitted into \code{discretization}\eqn{+1} pieces to be a computationally tractable problem.
+The direct estimation method search over a parameter space defined by the user. Vectors \code{WT2R_bounds}, \code{WT2M_bounds}, \code{M2R_bounds} will be containing the lower and upper bound on log\eqn{_{10}} scale of the mutation rates on their first and second entry, respectively. Each vector is representing an interval which be splitted into \code{discretization}\eqn{+1} pieces to be a computationally tractable problem.
 
 Remark.
 \code{population_size} \eqn{\in \mathbb{N}.}
-
-\code{resample_size} \eqn{\in \mathbb{N}.}
 
 \code{GC} \eqn{\in \mathbb{N}.}
 
@@ -25,15 +23,14 @@ Remark.
 
 \code{population_size} \eqn{\geq} \code{resample_size}}
 \usage{
-ML_Estimation(File, population_size, resample_size, GC, dilution, discretization,
-                     WT2R_bounds, WT2M_bounds, M2R_bounds)
+LSQ_Estimation(File, population_size, GC, dilution, discretization, WT2R_bounds, WT2M_bounds, M2R_bounds)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 \item{File}{A .txt file where the mutant cells and the mutant mutator cells from the growth cycle \eqn{j} appear on the \eqn{2j-1}-th and \eqn{2j}-th column, where \eqn{j=1, 2,\ldots, } \code{GC}.}
 \item{population_size}{Final population size of the cell culture.}
 %%     ~~Describe \code{x} here~~
-\item{resample_size}{Number of cultures to work with.}
 \item{GC}{Growth cycle to work with.}
 \item{dilution}{Dilution factor.}
 \item{discretization}{Number of pieces, minus one, each mutation rate sample space will be splitted into.}
@@ -92,9 +89,6 @@ write.table(Mutants, FILENAME, sep = " ",append = T,col.names = FALSE,row.names 
 estimates=LSQ_Estimation(File=FILENAME, population_size=2^33, GC=3, dilution=0.0000005,
                discretization=30, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
 
-#Estimation of the mutation rates
-mutation_rates=10^estimates
-mutation_rates
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):

@@ -25,15 +25,16 @@ Remark.
 
 \code{population_size} \eqn{\geq} \code{resample_size}}
 \usage{
-ML_Estimation(File, population_size, resample_size, GC, dilution, discretization,
-                     WT2R_bounds, WT2M_bounds, M2R_bounds)
+ML_Estimation(File, population_size, resampling, resample_size, GC, dilution,
+              discretization, WT2R_bounds, WT2M_bounds, M2R_bounds)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 \item{File}{A .txt file where the mutant cells and the mutant mutator cells from the growth cycle \eqn{j} appear on the \eqn{2j-1}-th and \eqn{2j}-th column, where \eqn{j=1, 2,\ldots, } \code{GC}.}
 \item{population_size}{Final population size of the cell culture.}
 %%     ~~Describe \code{x} here~~
-\item{resample_size}{Number of cultures to work with.}
+\item{resampling}{\code{True/False} value to consider or not a resampling.}
+\item{resample_size}{Number of cultures to work with, if \code{resampling=True}.}
 \item{GC}{Growth cycle to work with.}
 \item{dilution}{Dilution factor.}
 \item{discretization}{Number of pieces, minus one, each mutation rate sample space will be splitted into.}
