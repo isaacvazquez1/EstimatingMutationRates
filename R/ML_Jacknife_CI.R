@@ -20,7 +20,7 @@ registerDoParallel(cl)
 rep=Replicates
 output<-foreach(k=1:rep)%dopar%{
   EstimatingMutationRates::ML_Estimation(File, population_size, resampling = T, resample_size, GC, dilution=runif(1,dilution_lowerbound,dilution_upperbound),
-                discretization, WT2R_bounds, WT2M_bounds, M2R_bounds)
+                discretization, WT2R_bounds, WT2M_bounds, M2R_bounds, alpha=0.05)
 }
 
 result_1=c()

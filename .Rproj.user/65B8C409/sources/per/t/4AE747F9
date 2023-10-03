@@ -3,24 +3,24 @@
     "path": "~/GitHub/EstimatingMutationRates/man/ML_Bivariate.Rd",
     "project_path": "man/ML_Bivariate.Rd",
     "type": "r_doc",
-    "hash": "3081964516",
+    "hash": "130572589",
     "contents": "",
     "dirty": false,
     "created": 1696311227493.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 4,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "8,729",
-        "scrollLine": "0"
+        "cursorPosition": "36,2",
+        "scrollLine": "26"
     },
     "folds": "",
-    "lastKnownWriteTime": 1696310107,
+    "lastKnownWriteTime": 1696370672,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1696310107,
+    "last_content_update": 1696370672512,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -10,7 +10,7 @@ From the above framework a resample of size \code{resample_size} with replacemen
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-ML_Bivariate(File, population_size, resampling, resample_size, GC, dilution, discretization, WT2R_bounds, WT2M_bounds, strength)
+ML_Bivariate(File, population_size, resampling, resample_size, GC, dilution, discretization, WT2R_bounds, WT2M_bounds, strength,alpha)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,15 +27,16 @@ ML_Bivariate(File, population_size, resampling, resample_size, GC, dilution, dis
   \item{strength}{A positive factor.
 %%     ~~Describe \code{strength} here~~
 }
+\item{alpha}{A real number between 0 and 1.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
 %%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
+  \item{$Estimations}{Estimates of mutation rates}
+  \item{$ML_Confidence_Interval}{(1-\code{alpha})100\% Likelihood-based confidence interval}
+  \item{$Log_likelihood}{Log-likelihood function evaluated on possible mutation rate values}
 %% ...
 }
 \references{
@@ -56,7 +57,7 @@ ML_Bivariate(File, population_size, resampling, resample_size, GC, dilution, dis
 \examples{
 
 FILENAME="GM-Mutants.txt"
-ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001, discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), strength= 1000)
+ML_Bivariate(File=FILENAME, population_size=2^33, resampling = F, resample_size=0, GC=1, dilution=0.0001, discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), strength= 1000,alpha=0.05)
 
 ##---- Should be DIRECTLY executable !! ----
 ##-- ==>  Define data, use random,
