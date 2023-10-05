@@ -94,7 +94,7 @@ write.table(Mutants, FILENAME, sep = " ",append = T,col.names = FALSE,row.names 
 
 #Maximum likelihood estimation
 estimates=ML_Estimation(File=FILENAME, population_size=2^33, resample_size=50, GC=2, dilution=0.0001,
-               discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3))
+               discretization=25, WT2R_bounds=c(-8, -5), WT2M_bounds=c(-7, -3), M2R_bounds=c(-7, -3),alpha=0.05)
 
 #Estimation of the mutation rates
 estimates$Estimations

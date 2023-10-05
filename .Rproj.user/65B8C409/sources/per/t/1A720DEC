@@ -3,7 +3,7 @@
     "path": "~/GitHub/EstimatingMutationRates/R/ML_Estimation.R",
     "project_path": "R/ML_Estimation.R",
     "type": "r_source",
-    "hash": "3288878579",
+    "hash": "1625258030",
     "contents": "",
     "dirty": false,
     "created": 1696370605221.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "142,74",
-        "scrollLine": "130"
+        "cursorPosition": "129,50",
+        "scrollLine": "123"
     },
     "folds": "",
-    "lastKnownWriteTime": 1696369872,
+    "lastKnownWriteTime": 1696432121,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1696369872,
+    "last_content_update": 1696432121078,
     "read_only": false,
     "read_only_alternatives": []
 }

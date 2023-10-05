@@ -127,7 +127,7 @@ ML_Estimation=function(File, population_size, resampling, resample_size, GC, dil
   df=as.data.frame(output)
 
 
-  df_confidence<-df[df[,4] >= max-qchisq(1-alpha,2)/2, ]
+  df_confidence<-df[df[,4] >= max-qchisq(1-alpha,3)/2, ]
 
   CI=matrix(0,3,2)
   row.names(CI)=c('Wildtype to Mutant', 'Wildtype to Mutator', 'Mutator to Mutant mutator')
