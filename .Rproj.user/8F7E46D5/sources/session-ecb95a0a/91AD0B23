@@ -1,0 +1,26 @@
+{
+    "id": "91AD0B23",
+    "path": "~/GitHub/EstimatingMutationRates/man/ML_BivariateJackknife_CI.Rd",
+    "project_path": "man/ML_BivariateJackknife_CI.Rd",
+    "type": "r_doc",
+    "hash": "3069603401",
+    "contents": "",
+    "dirty": false,
+    "created": 1700269324487.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "72,0",
+        "scrollLine": "64"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1700269631,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1700269631219,
+    "read_only": false,
+    "read_only_alternatives": []
+}
