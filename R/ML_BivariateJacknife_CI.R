@@ -30,34 +30,30 @@ ML_BivariateJackknife_CI<-function(Replicates, alpha, FreeCores, File, populatio
 
 
   #Estimation
-
-
   estimate_WT2R=mean(result_1[,1])
   estimate_WT2M=mean(result_1[,2])
   estimate_M2R=mean(result_1[,3])
-
-
 
   confidence_intervals=matrix(0,3,3)
   confidence_intervals[1,1]=estimate_WT2R
   confidence_intervals[2,1]=estimate_WT2M
   confidence_intervals[3,1]=estimate_M2R
 
-
   #(1-alpha)100% confidence region
-
-
-  aux_WT2R=qt(p= alpha/2, df=rep-1, lower.tail = F)*var(result_1[,1])/sqrt(rep)
-  aux_WT2M=qt(p= alpha/2, df=rep-1, lower.tail = F)*var(result_1[,2])/sqrt(rep)
-  aux_M2R=qt(p= alpha/2, df=rep-1, lower.tail = F)*var(result_1[,3])/sqrt(rep)
-
-
-  confidence_intervals[1,2]=estimate_WT2R-aux_WT2R
-  confidence_intervals[1,3]=estimate_WT2R+aux_WT2R
-  confidence_intervals[2,2]=estimate_WT2M-aux_WT2M
-  confidence_intervals[2,3]=estimate_WT2M+aux_WT2M
-  confidence_intervals[3,2]=estimate_M2R-aux_M2R
-  confidence_intervals[3,3]=estimate_M2R+aux_M2R
+  for(i in 1:ncol(result_1)){
+    aux=result_1[,i]
+    aux=sort(aux)
+    lower=round(alpha/2*(nrow(result_1)+1))
+    upper=round((1-alpha/2)*(nrow(result_1)+1))
+    if(lower==0){
+      lower=1
+    }
+    if(upper>nrow(result_1)){
+      upper=nrow(result_1)
+    }
+    confidence_intervals[i,2]=aux[lower]
+    confidence_intervals[i,3]=aux[upper]
+  }
 
 
   colnames(confidence_intervals)=c('Estimate', 'Lower bound', 'Upper bound')
